@@ -1,0 +1,11 @@
+# compiled output
+/dist
+/node_modules
+
+.git
+.gitignore
+
+.env
+.nyc_output
+
+Dockerfile
