@@ -103,3 +103,18 @@ jobs:
 
           echo "📊 깃 상태 확인:"
           git status
+
+          echo "🐋 도커 이미지 빌드 및 배포 시작"
+          docker-compose down
+          
+          docker-compose up -d --build
+
+          docker system prune -f
+          
+          sleep 10
+
+          echo "✅ 도커 컨테이너 상태 확인"
+          docker ps
+          
+          echo "🔍 애플리케이션 헬스 체크"
+          curl -f http://localhost:5000/health || exit 1
