@@ -76,30 +76,30 @@ jobs:
         port: ${{ secrets.PORT }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_KEY_PASSPHRASE }}
-      script: |
-        echo "🚀 배포 워크플로우 시작"
+        script: |
+          echo "🚀 배포 워크플로우 시작"
 
-        if [ ! -d ${{ secrets.DEPLOY_PATH }} ]; then
-          echo "📁 디렉토리 생성"
-          mkdir -p ${{ secrets.DEPLOY_PATH }}
-        fi
+          if [ ! -d ${{ secrets.DEPLOY_PATH }} ]; then
+            echo "📁 디렉토리 생성"
+            mkdir -p ${{ secrets.DEPLOY_PATH }}
+          fi
 
-        echo "📁 디렉토리 이동"
-        cd ${{ secrets.DEPLOY_PATH }}
+          echo "📁 디렉토리 이동"
+          cd ${{ secrets.DEPLOY_PATH }}
 
-        if [ ! -d ".git" ]; then
-          echo "🔄 깃 저장소 클론중..."
-          git clone https://github.com/jae-yon/nest-docker.git . || {
-            echo "❌ 깃 저장소 클론 실패"
-            exit 1
-          }
-        else
-          echo "🔄 깃 저장소 업데이트중..."
-          git pull origin main || {
-            echo "❌ 깃 저장소 업데이트 실패"
-            exit 1
-          }
-        fi
+          if [ ! -d ".git" ]; then
+            echo "🔄 깃 저장소 클론중..."
+            git clone https://github.com/jae-yon/nest-docker.git . || {
+              echo "❌ 깃 저장소 클론 실패"
+              exit 1
+            }
+          else
+            echo "🔄 깃 저장소 업데이트중..."
+            git pull origin main || {
+              echo "❌ 깃 저장소 업데이트 실패"
+              exit 1
+            }
+          fi
 
-        echo "📊 깃 상태 확인:"
-        git status
+          echo "📊 깃 상태 확인:"
+          git status
