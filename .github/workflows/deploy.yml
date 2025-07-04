@@ -105,16 +105,25 @@ jobs:
           git status
 
           echo "🐋 도커 이미지 빌드 및 배포 시작"
-          docker-compose down
-          
-          docker-compose up -d --build
 
-          docker system prune -f
-          
+          # 기존 컨테이너 중지 및 제거
+          docker compose down
+
+          # 새로운 컨테이너 시작
+          docker compose up -d --build
+
           sleep 10
-
-          echo "✅ 도커 컨테이너 상태 확인"
-          docker ps
           
+          docker system prune -f
+
           echo "🔍 애플리케이션 헬스 체크"
           curl -f http://localhost:5000/health || exit 1
+
+          echo "✅ 도커 컨테이너 상태 확인"
+          docker compose ps
+
+          echo "📊 디스크 사용량:"
+          df -h
+
+          echo "🐳 Docker 리소스 사용량:"
+          docker system df
